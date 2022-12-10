@@ -1,15 +1,19 @@
 import Search from "./search_bar";
 import styles from "../styles/NavBar.module.css";
 import Link from "next/link";
+import React from "react";
 
 interface PageData {
   title: string;
   link: string;
 }
 
-export default function NavBar() {
-  const pages: PageData[] = [{ link: "/profile", title: "Profile" }];
-  let activeIndex = -1;
+interface NavBarData {
+    index: number;
+}
+
+export default function NavBar({index}: NavBarData) {
+    const pages: PageData[] = [{ link: "/profile", title: "Profile" }];
 
   return (
     <nav
@@ -18,7 +22,7 @@ export default function NavBar() {
       }
     >
       <div className="container-fluid">
-        <a className="navbar-brand">News App</a>
+        <Link href="/" className="navbar-brand">ChainNews</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -30,10 +34,9 @@ export default function NavBar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <NavBarItems items={pages} activeIndex={activeIndex}></NavBarItems>
+              <NavBarItems items={pages} activeIndex={index}></NavBarItems>
           </ul>
           <Search></Search>
         </div>
@@ -46,9 +49,10 @@ interface NavBarItemData {
   title: string;
   link: string;
   isActive: boolean;
+  index: number;
 }
 
-function NavBarItem({ title, link, isActive }: NavBarItemData) {
+function NavBarItem({ title, link, isActive, index }: NavBarItemData) {
   return (
     <li className="nav-item">
       <Link href={link} className={isActive ? "nav-link active" : "nav-link"}>
@@ -69,6 +73,7 @@ function NavBarItems({ items, activeIndex }: NavBarItemsData) {
     <NavBarItem
       title={item.title}
       link={item.link}
+      index={index}
       isActive={activeIndex === index}
     ></NavBarItem>
   ))}

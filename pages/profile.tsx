@@ -1,5 +1,9 @@
+import BaseLayout from "../components/base_layout";
+
 export default function Profile() {
     return (
-      <div> Profile </div>
+      <BaseLayout activeIndex={0}>
+        <div> Profile </div>
+      </BaseLayout>
     )
 }
